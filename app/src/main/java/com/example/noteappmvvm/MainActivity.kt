@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NoteRVAdapter.INotesAdapter {
@@ -14,7 +15,15 @@ class MainActivity : AppCompatActivity(), NoteRVAdapter.INotesAdapter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recyclerView.layoutManager=LinearLayoutManager(this)
+
+        StaggeredGridLayoutManager(
+            2, // span count
+            StaggeredGridLayoutManager.VERTICAL // orientation
+        ).apply {
+            // specify the layout manager for recycler view
+            recyclerView.layoutManager = this
+        }
+
         val adapter=NoteRVAdapter(this,this)
         recyclerView.adapter=adapter
 
